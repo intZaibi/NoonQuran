@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import db from '../../../utils/db.js'
+import db from '@/utils/db'
 import {v4 as uuid} from 'uuid'
-import currencyConverter from './currencyConverter.js'
+import currencyConverter from '@/utils/currencyConverter.js'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
