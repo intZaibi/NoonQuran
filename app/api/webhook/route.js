@@ -18,7 +18,6 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-console.log(process.env.EMAIL_USERNAME, process.env.EMAIL_PASSWORD)
 export async function POST(req, res) {
   const body = await req.text();
   const header = await headers();
@@ -57,9 +56,10 @@ export async function POST(req, res) {
       };
     });
     console.log("Payment for:", products);
-
-    saveOrderToDatabase(idempotencyKey);
+    console.log('calling mailer...')
     mailer({email: customer_email, name: metadata.name});
+    console.log('Storing data...')
+    saveOrderToDatabase(idempotencyKey);
 
   } else {
     const session = event.data.object;
@@ -91,7 +91,7 @@ const saveOrderToDatabase = async (idempotencyKey) => {
 
 
 const mailer = async (details) => {
-
+  console.log('sending mail...')
   const info = await transporter.sendMail({
     from: `"Noon Quran" <${process.env.EMAIL_USERNAME}>`, // sender address
     to: details.email, // list of receivers
