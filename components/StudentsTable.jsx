@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, Typography } from "@material-tailwind/react"; 
+import { Card, Typography, Modal, Button, Input } from "@material-tailwind/react";
 
 const TABLE_HEAD = [
   "id",
@@ -26,7 +26,7 @@ const PAGE_SIZE = 20;
 
 function TableComponent({ students, siblings }) {
   const [currentPage, setCurrentPage] = useState(1);
-  const [expandedStudentId, setExpandedStudentId] = useState(null);  // Track the expanded student
+  const [expandedStudentId, setExpandedStudentId] = useState(null);
 
   const totalPages = Math.ceil(students.length / PAGE_SIZE);
   const currentData = students.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
@@ -36,8 +36,7 @@ function TableComponent({ students, siblings }) {
   };
 
   const handleRowClick = (idempotencyKey) => {
-    // Toggle between showing and hiding the sibling data based on the current row clicked
-    setExpandedStudentId(prev => (prev === idempotencyKey ? null : idempotencyKey));
+    setExpandedStudentId((prev) => (prev === idempotencyKey ? null : idempotencyKey));
   };
 
   return (
@@ -109,7 +108,6 @@ function TableComponent({ students, siblings }) {
                   ", " +
                   created_at?.toString()?.split("T")[0];
 
-                // Filter siblings for this student only once
                 const filteredSiblings = siblings.filter((sibling) => sibling.idempotencyKey === idempotencyKey);
 
                 return (
@@ -205,7 +203,6 @@ function TableComponent({ students, siblings }) {
                           {dateTime}
                         </Typography>
                       </td>
-                      {/* Actions Column */}
                       <td className="p-4 sticky right-0 bg-white z-20">
                         <div className="flex justify-center space-x-2">
                           <button
@@ -220,18 +217,23 @@ function TableComponent({ students, siblings }) {
                           >
                             WhatsApp
                           </button>
+                          {/* <button
+                            className="px-2 py-1 bg-yellow-500 text-white rounded-md"
+                            onClick={() => handleEditButtonClick({ id, name, email, whatsapp_no, phone, skype_id, guardian_name, gender, age, language, class_time, course, class_days, no_of_siblings, country, total_price, payment_status, created_at })}
+                          >
+                            Edit Student
+                          </button> */}
                         </div>
                       </td>
                     </tr>
 
-                    {/* Show sibling rows if the student's idempotencyKey matches the selected one */}
                     {expandedStudentId === idempotencyKey ? (
                       filteredSiblings.length > 0 ? (
                         filteredSiblings.map(({ id, name, age, gender, course }, i) => (
                           <tr key={i} className="bg-gray-100">
                             <td className="p-4 sticky left-0 z-20">
                               <Typography variant="small" color="blue-gray" className="font-normal text-center">
-                                {id}
+                                {i + 1}
                               </Typography>
                             </td>
                             <td className="p-4">
@@ -254,7 +256,14 @@ function TableComponent({ students, siblings }) {
                                 {course}
                               </Typography>
                             </td>
-                            <td colSpan={15}></td>
+                            <td colSpan={15}>
+                              <button
+                                className="px-2 py-1 bg-yellow-500 text-white rounded-md"
+                                onClick={() => handleSiblingEditClick({ id, name, age, gender, course })}
+                              >
+                                Edit Sibling
+                              </button>
+                            </td>
                           </tr>
                         ))
                       ) : (
