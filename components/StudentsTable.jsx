@@ -99,7 +99,6 @@ function TableComponent({ students, siblings }) {
                   payment_status,
                   created_at,
                 },
-                index
               ) => {
                 const dateTime =
                   created_at
@@ -109,6 +108,9 @@ function TableComponent({ students, siblings }) {
                     ?.substr(0, created_at?.toString()?.split("T")[1]?.split(".")[0]?.length - 3) +
                   ", " +
                   created_at?.toString()?.split("T")[0];
+
+                // Filter siblings for this student only once
+                const filteredSiblings = siblings.filter((sibling) => sibling.idempotencyKey === idempotencyKey);
 
                 return (
                   <React.Fragment key={id}>
@@ -155,7 +157,7 @@ function TableComponent({ students, siblings }) {
                       </td>
                       <td className="p-4">
                         <Typography variant="small" color="blue-gray" className="font-normal text-center">
-                          {skype_id || "N/A"}
+                          {skype_id}
                         </Typography>
                       </td>
                       <td className="p-4">
@@ -221,39 +223,46 @@ function TableComponent({ students, siblings }) {
                         </div>
                       </td>
                     </tr>
-                    {/* Only show siblings if the student's idempotencyKey matches the selected one */}
-                    {expandedStudentId === idempotencyKey && siblings
-                      .filter((sibling) => sibling.idempotencyKey === idempotencyKey)
-                      .map(({ id, name, age, gender, course }, i) => (
-                        <tr key={i} className="bg-gray-100">
-                          <td className="p-4 sticky left-0 z-20">
-                            <Typography variant="small" color="blue-gray" className="font-normal text-center">
-                              {i+1}
-                            </Typography>
-                          </td>
-                          <td className="p-4">
-                            <Typography variant="small" color="blue-gray" className="font-normal text-center">
-                              {name}
-                            </Typography>
-                          </td>
-                          <td className="p-4">
-                            <Typography variant="small" color="blue-gray" className="font-normal text-center">
-                              {age}
-                            </Typography>
-                          </td>
-                          <td className="p-4">
-                            <Typography variant="small" color="blue-gray" className="font-normal text-center">
-                              {gender}
-                            </Typography>
-                          </td>
-                          <td className="p-4">
-                            <Typography variant="small" color="blue-gray" className="font-normal text-center">
-                              {course}
-                            </Typography>
-                          </td>
-                          <td colSpan={15}></td>
+
+                    {/* Show sibling rows if the student's idempotencyKey matches the selected one */}
+                    {expandedStudentId === idempotencyKey ? (
+                      filteredSiblings.length > 0 ? (
+                        filteredSiblings.map(({ id, name, age, gender, course }, i) => (
+                          <tr key={i} className="bg-gray-100">
+                            <td className="p-4 sticky left-0 z-20">
+                              <Typography variant="small" color="blue-gray" className="font-normal text-center">
+                                {id}
+                              </Typography>
+                            </td>
+                            <td className="p-4">
+                              <Typography variant="small" color="blue-gray" className="font-normal text-center">
+                                {name}
+                              </Typography>
+                            </td>
+                            <td className="p-4">
+                              <Typography variant="small" color="blue-gray" className="font-normal text-center">
+                                {age}
+                              </Typography>
+                            </td>
+                            <td className="p-4">
+                              <Typography variant="small" color="blue-gray" className="font-normal text-center">
+                                {gender}
+                              </Typography>
+                            </td>
+                            <td className="p-4">
+                              <Typography variant="small" color="blue-gray" className="font-normal text-center">
+                                {course}
+                              </Typography>
+                            </td>
+                            <td colSpan={15}></td>
+                          </tr>
+                        ))
+                      ) : (
+                        <tr className="bg-gray-100">
+                          <td colSpan={12} className="text-center">No Sibling</td>
                         </tr>
-                      ))}
+                      )
+                    ) : null}
                   </React.Fragment>
                 );
               }
