@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Initially hide the row */
+.tr-hidden {
+  opacity: 0;
+  transform: translateY(-20px); /* Move the row up slightly */
+  transition: opacity 0.5s ease, transform 0.5s ease; /* Animate opacity and position */
+}
+
+/* When the class is removed, the row will appear */
+.tr-visible {
+  opacity: 1;
+  transform: translateY(0); /* Reset position */
+  transition: opacity 0.5s ease, transform 0.5s ease; /* Smooth transition */
+}

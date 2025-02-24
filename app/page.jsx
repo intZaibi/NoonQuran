@@ -65,11 +65,11 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center bg-[antiquewhite]">
       <div className="text-center pt-8">
           <h1 className="text-3xl font-bold">Admin Panel Noon Quran</h1>
         </div>
-      <div className="pl-8 pr-8 pt-8 pb-8 grid grid-cols-3 grid-rows-3 gap-7 h-screen">
+      <div className="pl-8 pr-8 pt-8 pb-8 grid grid-cols-3 grid-rows-3 gap-7 h-[120vh]">
         {loading ? (
           <div className="col-span-3 flex justify-center items-center h-full">
             <div className="animate-spin h-10 w-10 border-4 border-t-4 border-blue-500 border-t-transparent rounded-full"></div>
@@ -124,7 +124,7 @@ export default function Dashboard() {
             {/* Main Student Table */}
             <div
               id="Sales"
-              className="flex flex-col bg-white shadow-[0_8px_20px_#080f342f] p-4 rounded-2xl min-h-10 min-w-10 col-span-3 row-span-2"
+              className="flex flex-col bg-white shadow-[0_8px_20px_#080f342f] p-4 rounded-2xl min-h-10 min-w-10 col-span-3 row-span-4"
               style={{scrollbarWidth: 'thin',
                 scrollbarColor: 'transparent transparent'}}
             >
@@ -317,14 +317,14 @@ export default function Dashboard() {
                 </tbody>
               </table>
               </Card> */}
-              <StudentsTable orders={students}/>
+              <StudentsTable students={students} siblings={siblings}/>
             </div>
 
           </>
         )}
       </div>
             {/* Siblings Table */}
-            <div
+            {/* <div
               id="Sales"
               className="flex flex-col mb-5 bg-white shadow-[0_8px_20px_#080f342f] p-4 rounded-2xl h-96 w-[95%] col-span-3 row-span-3"
               style={{scrollbarWidth: 'thin',
@@ -332,7 +332,7 @@ export default function Dashboard() {
             >
               <h1 className="text-xl font-bold">Siblings</h1>
               <SiblingsTable orders={ siblings }/>
-            </div>
+            </div> */}
     </div>
   );
 }
