@@ -1,11 +1,8 @@
 "use client";
-import { Card, Typography } from "@material-tailwind/react";
 import StudentsTable from "@/components/StudentsTable";
-import SiblingsTable from "@/components/SiblingsTable";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
-import Link from "next/link";
 
 export default function Dashboard() {
   const router = useRouter();
