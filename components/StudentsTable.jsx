@@ -227,7 +227,7 @@ function TableComponent({ students, siblings, handleEditButtonClick }) {
                       </td>
                     </tr>
 
-                    {expandedStudentId === idempotencyKey ? (
+                    {
                       filteredSiblings.length > 0 ? (
                         filteredSiblings.map(({ id, name, age, gender, course }, i) => (
                           <tr key={i} className="bg-gray-100">
@@ -271,7 +271,7 @@ function TableComponent({ students, siblings, handleEditButtonClick }) {
                           <td colSpan={12} className="text-center">No Sibling</td>
                         </tr>
                       )
-                    ) : null}
+                    }
                   </React.Fragment>
                 );
               }

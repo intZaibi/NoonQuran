@@ -117,29 +117,35 @@ export async function POST(req) {
   const idempotencyKey = uuid(); // for unique record in DB
     try {
       
-      const session = await stripe.checkout.sessions.create({
-        line_items: [{
-          price_data: {
-            product_data: {
-              name: course,
-              // images: image,
+      if(paymentMethod === "Stripe"){
+        const session = await stripe.checkout.sessions.create({
+          line_items: [{
+            price_data: {
+              product_data: {
+                name: course,
+                // images: image,
+              },
+              currency: TP.currency,
+              unit_amount: currency === 'KWD' || currency === 'BHD' ? Number((TP.totalPrice * 1000).toFixed(2)) : Number((TP.totalPrice * 100).toFixed(2)),
             },
-            currency: TP.currency,
-            unit_amount: currency === 'KWD' || currency === 'BHD' ? Number((TP.totalPrice * 1000).toFixed(2)) : Number((TP.totalPrice * 100).toFixed(2)),
+            quantity: 1,
+          }],
+          mode: 'payment',
+          submit_type: 'pay',
+          billing_address_collection: 'auto',
+          customer_email: email,
+          metadata: {
+            idempotencyKey,
+            name
           },
-          quantity: 1,
-        }],
-        mode: 'payment',
-        submit_type: 'pay',
-        billing_address_collection: 'auto',
-        customer_email: email,
-        metadata: {
-          idempotencyKey,
-          name
-        },
-        success_url: `https://noonquran.com/`,
-        cancel_url: `https://noonquran.com/`,
-      });
+          success_url: `https://noonquran.com/`,
+          cancel_url: `https://noonquran.com/`,
+        });
+      } else if ( paymentMethod === "Paypal" ){
+        
+      }
+
+
 
       // currency conversion to be stored in database in AED
       const data = await currencyConverter(formData.total_price, currency)
