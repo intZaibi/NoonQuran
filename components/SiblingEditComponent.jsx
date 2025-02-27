@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { TextField, Button, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
 function SiblingEditForm({ student: sibling, handleSubmitEditStudent: onSubmit }) {
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     ...sibling,
     name: sibling?.name || '',
@@ -22,6 +23,7 @@ function SiblingEditForm({ student: sibling, handleSubmitEditStudent: onSubmit }
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     onSubmit(formData);
   };
 
@@ -97,7 +99,7 @@ function SiblingEditForm({ student: sibling, handleSubmitEditStudent: onSubmit }
 
         {/* Add more fields as necessary */}
         <Button type="submit" variant="contained" color="primary" className="mt-4">
-          Save Changes
+        {loading ? "Save Changes..." : "Save Changes"}
         </Button>
       </form>
     </div>

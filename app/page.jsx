@@ -25,7 +25,8 @@ export default function Dashboard() {
       );
       if (!res.ok)
         router.push(`${process.env.NEXT_PUBLIC_BASE_URL}/admin/auth/signIn`);
-        setIsAuthenticated(true)
+      else
+        setIsAuthenticated(true);
     } catch(err) {
       console.log('error while authentication:', err)
     } finally {
@@ -88,14 +89,25 @@ export default function Dashboard() {
 
   const handleSubmitEditStudent = async (updatedData) => {
     // Logic to update student data
-    console.log("Student Data:", students);
+    
     try{
-      setCurrentStudent(updatedData);
       console.log('object')
       await fetch('http://localhost:3000/api/updateData', {
         method: "POST",
         body: JSON.stringify({formData: updatedData})
       });
+
+      // Update client-side state immediately
+    if (updatedData.role === 'mainStudent') {
+      setStudents(prevStudents => prevStudents.map(student => 
+        student.id === updatedData.id ? { ...student, ...updatedData } : student
+      ));
+    } else if (updatedData.role === 'sibling') {
+      setSiblings(prevSiblings => prevSiblings.map(sibling => 
+        sibling.id === updatedData.id ? { ...sibling, ...updatedData } : sibling
+      ));
+    }
+
 
     } catch(error) {
       console.log('Error updating data: ', error)
@@ -104,12 +116,6 @@ export default function Dashboard() {
     }
     
   };
-
-  // const handleEditSibling = (updatedData) => {
-  //   // Logic to update sibling data
-  //   console.log("Updated Sibling Data:", updatedData);
-  //   setShowModal(false);
-  // };
 
   return (
     <React.Fragment>

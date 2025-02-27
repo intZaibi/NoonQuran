@@ -4,6 +4,7 @@ import { TextField, Button, Select, MenuItem, InputLabel, FormControl } from "@m
 function StudentEditForm({ student, handleSubmitEditStudent: onSubmit }) {
   // console.log(student)
   // Initialize the form data with default values if student is undefined or has missing properties
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     ...student,
     name: student?.name || '',
@@ -32,6 +33,7 @@ function StudentEditForm({ student, handleSubmitEditStudent: onSubmit }) {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
     onSubmit(formData);
   };
 
@@ -206,7 +208,7 @@ function StudentEditForm({ student, handleSubmitEditStudent: onSubmit }) {
 
         <div className="col-span-2 flex justify-center mt-4">
           <Button type="submit" variant="contained" color="primary" className="w-96">
-            Save Changes
+            {loading ? "Save Changes..." : "Save Changes"}
           </Button>
         </div>
       </form>
