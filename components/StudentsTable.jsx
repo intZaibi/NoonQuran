@@ -295,6 +295,11 @@ function TableComponent({ students, siblings, handleEditButtonClick }) {
                         </tr>
                       )
                     }
+                    <tr>
+                      <td colSpan={TABLE_HEAD.length + 1} className="border-t-2 border-blue-700">
+                        {/* This is the divider */}
+                      </td>
+                    </tr>
                   </React.Fragment>
                 );
               }

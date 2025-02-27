@@ -11,7 +11,7 @@ export async function POST(req) {
 
     const {formData} = await req.json()
     console.log(formData)
-    const { country, class_days, no_of_siblings, course, email, name} =  formData
+    const { country, class_days, no_of_siblings, course, email, name, paymentMethod} =  formData
     const priceData = {
       UAE: {
           "5-days": { base: 220.00, sibling: 172.00 },
@@ -186,7 +186,7 @@ export async function POST(req) {
           }
         }
 
-      return NextResponse.json({ url: session.url }, { status: 200 });
+      return NextResponse.json({ message: 'url: session.url' }, { status: 200 });
 
     } catch (err) {
       console.error('Error: ', err);
