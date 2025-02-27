@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, Typography, Modal, Button, Input } from "@material-tailwind/react";
+import { Card, Typography } from "@material-tailwind/react";
 
 const TABLE_HEAD = [
   "id",
@@ -24,7 +24,7 @@ const TABLE_HEAD = [
 
 const PAGE_SIZE = 20;
 
-function TableComponent({ students, siblings }) {
+function TableComponent({ students, siblings, handleEditButtonClick }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [expandedStudentId, setExpandedStudentId] = useState(null);
 
@@ -217,12 +217,12 @@ function TableComponent({ students, siblings }) {
                           >
                             WhatsApp
                           </button>
-                          {/* <button
+                          <button
                             className="px-2 py-1 bg-yellow-500 text-white rounded-md"
-                            onClick={() => handleEditButtonClick({ id, name, email, whatsapp_no, phone, skype_id, guardian_name, gender, age, language, class_time, course, class_days, no_of_siblings, country, total_price, payment_status, created_at })}
+                            onClick={() => handleEditButtonClick({role: 'mainStudent', id, idempotencyKey, name, email, whatsapp_no, phone, skype_id, guardian_name, gender, age, language, class_time, course, payment_status })}
                           >
                             Edit Student
-                          </button> */}
+                          </button>
                         </div>
                       </td>
                     </tr>
@@ -259,7 +259,7 @@ function TableComponent({ students, siblings }) {
                             <td colSpan={15}>
                               <button
                                 className="px-2 py-1 bg-yellow-500 text-white rounded-md"
-                                onClick={() => handleSiblingEditClick({ id, name, age, gender, course })}
+                                onClick={() => handleEditButtonClick({role: 'sibling', id, name, age, gender, course, idempotencyKey })}
                               >
                                 Edit Sibling
                               </button>

@@ -12,11 +12,12 @@ export async function POST(req) {
       { expiresIn: '10min' }
     );
     
-    await cookies().set({
+    const cookie = await cookies()
+    cookie.set({
       name: 'admin',
       value: token,
       httpOnly: false,
-      maxAge: 60*10,
+      maxAge: 60*60,
       sameSite: 'strict',
       path: '/'
     });
