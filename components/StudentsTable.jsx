@@ -31,6 +31,29 @@ function TableComponent({ students, siblings, handleEditButtonClick }) {
   const totalPages = Math.ceil(students.length / PAGE_SIZE);
   const currentData = students.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
 
+  function convertToRoman(num) {
+  const romanNumerals = [
+    ["C", 100],
+    ["XC", 90],
+    ["L", 50],
+    ["XL", 40],
+    ["X", 10],
+    ["ix", 9],
+    ["v", 5],
+    ["iv", 4],
+    ["i", 1]
+  ];
+
+  let result = '';
+  for (let [symbol, value] of romanNumerals) {
+    while (num >= value) {
+      result += symbol;
+      num -= value;
+    }
+  }
+  return result;
+}
+
   const handlePagination = (page) => {
     setCurrentPage(page);
   };
@@ -233,7 +256,7 @@ function TableComponent({ students, siblings, handleEditButtonClick }) {
                           <tr key={i} className="bg-gray-100">
                             <td className="p-4 sticky left-0 z-20">
                               <Typography variant="small" color="blue-gray" className="font-normal text-center">
-                                {i + 1}
+                                {convertToRoman(i + 1)}
                               </Typography>
                             </td>
                             <td className="p-4">
