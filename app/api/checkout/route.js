@@ -156,7 +156,6 @@ export async function POST(req) {
       });
 
       url = session.url;
-      console.log(url)
     } else if (paymentMethod === "Paypal") {
       url = await createOrder({ name, ...TP, course, idempotencyKey });
     }
