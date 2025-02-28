@@ -76,9 +76,9 @@ export const createOrder = async ({ name, course, totalPrice, currency, idempote
 
   // If you need to parse the response as JSON:
   const data = await response.json();
-  console.log(data)
+  console.log('data: ', data)
 
-  return data.links.find((link) => link.rel === "approve").href;
+  // return data.links.find((link) => link.rel === "approve").href;
 };
 
 export const capturePayment = async (orderId) => {

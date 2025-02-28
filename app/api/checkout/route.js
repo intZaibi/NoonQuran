@@ -207,7 +207,7 @@ export async function POST(req) {
       }
     }
 
-    return NextResponse.json({ url }, { status: 200 });
+    return NextResponse.json({ url: 'url' }, { status: 200 });
   } catch (err) {
     console.error("Error: ", err);
     return NextResponse.json({ error: err }, { status: 500 });
