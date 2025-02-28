@@ -69,11 +69,12 @@ export const createOrder = async ({ name, course, totalPrice, currency, idempote
           shipping_preference: "NO_SHIPPING",
           user_action: "PAY_NOW",
           brand_name: "Noon Quran",
-          locale: "en_US",
+          locale: "fr_FR", // French as an example
         },
       }),
     }
   );
+  
 
   // If you need to parse the response as JSON:
   const data = await response.json();
