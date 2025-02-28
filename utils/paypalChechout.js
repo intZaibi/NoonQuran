@@ -24,7 +24,7 @@ async function generateAccessToken() {
   return data.access_token;
 }
 
-export const createOrder = async ({ name, course, totalPrice, currency }) => {
+export const createOrder = async ({ name, course, totalPrice, currency, idempotencyKey }) => {
   const accessToken = await generateAccessToken();
   
   const response = await fetch(
@@ -39,6 +39,7 @@ export const createOrder = async ({ name, course, totalPrice, currency }) => {
         intent: "CAPTURE",
         purchase_units: [
           {
+            reference_id: idempotencyKey, // Reference ID added here
             items: [
               {
                 name,

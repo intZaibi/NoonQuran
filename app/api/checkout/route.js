@@ -156,8 +156,9 @@ export async function POST(req) {
       });
 
       url = session.url;
+      console.log(url)
     } else if (paymentMethod === "Paypal") {
-      url = await createOrder({ name, ...TP, course });
+      url = await createOrder({ name, ...TP, course, idempotencyKey });
     }
 
     // currency conversion to be stored in database in AED
@@ -214,12 +215,26 @@ export async function POST(req) {
   }
 }
 
+
+
 export async function GET(req) {
   const urlObj = new URL(req.url);
   const token = urlObj.searchParams.get("token");
 
   try {
-    await capturePayment(token);
+    const res = await capturePayment(token);
+
+    if(res.status === "COMPLETED"){
+
+      const idempotencyKey = res.purchase_units[0].reference_id;
+      await db.query(
+        `
+        UPDATE payments SET payment_status
+        = ? WHERE idempotencyKey = ?
+      `,
+        ["completed", idempotencyKey]
+      );
+    }
 
     return NextResponse.redirect('https://noonquran.com/');
   } catch (err) {
