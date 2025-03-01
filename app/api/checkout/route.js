@@ -4,6 +4,7 @@ import db from "@/utils/db.js";
 import { v4 as uuid } from "uuid";
 import currencyConverter from "@/utils/currencyConverter.js";
 import { createOrder, capturePayment } from "@/utils/paypalChechout";
+import mailer from "@/utils/mailer";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -11,7 +12,6 @@ export async function POST(req) {
   console.log("reached to checkout api...");
 
   const { formData } = await req.json();
-  console.log(formData);
   const {
     country,
     class_days,
@@ -157,7 +157,7 @@ export async function POST(req) {
 
       url = session.url;
     } else if (paymentMethod === "Paypal") {
-      url = await createOrder({ name, ...TP, course, idempotencyKey });
+      url = await createOrder({ name, ...TP, email, course, idempotencyKey });
     }
 
     // currency conversion to be stored in database in AED
@@ -233,7 +233,9 @@ export async function GET(req) {
       `,
         ["completed", idempotencyKey]
       );
+      mailer({email: res.payer.email_address, name: res.payer.name.given_name});
     }
+    
 
     return NextResponse.redirect('https://noonquran.com/');
   } catch (err) {

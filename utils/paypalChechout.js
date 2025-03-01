@@ -24,7 +24,7 @@ async function generateAccessToken() {
   return data.access_token;
 }
 
-export const createOrder = async ({ name, course, totalPrice, currency, idempotencyKey }) => {
+export const createOrder = async ({ name, email, course, totalPrice, currency, idempotencyKey }) => {
   const accessToken = await generateAccessToken();
   
   const response = await fetch(
@@ -61,6 +61,13 @@ export const createOrder = async ({ name, course, totalPrice, currency, idempote
                 },
               },
             },
+            payer: {
+              name: name,
+              email_address: email,
+              address: {
+                country_code: 'US',
+              },
+            },
           },
         ],
         application_context: {
@@ -74,10 +81,10 @@ export const createOrder = async ({ name, course, totalPrice, currency, idempote
     }
   );
   
+  
 
   // If you need to parse the response as JSON:
   const data = await response.json();
-  console.log('data: ', data)
   if(data.links.length === 4)
     return data.links.find((link) => link.rel === "approve").href;
   else
