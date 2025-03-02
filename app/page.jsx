@@ -122,11 +122,11 @@ export default function Dashboard() {
       {showModal &&
       <Modal currentStudent={currentStudent} handleCloseEditModal={handleCloseEditModal} handleSubmitEditStudent={handleSubmitEditStudent}/>
       }
-    <div className="flex flex-col items-center justify-center bg-[antiquewhite]">
-      <div className="text-center pt-8">
+    <div className="flex flex-col items-center justify-center">
+      <div className="text-center pt-4">
           <h1 className="text-4xl font-bold">Admin Panel Noon Quran</h1>
         </div>
-      <div className="pl-8 pr-8 pt-8 pb-8 grid grid-cols-3 grid-rows-3 gap-7 h-[120vh]">
+      <div className="px-8 py-3 grid grid-cols-3 grid-rows-5 gap-6 h-[90vh]">
         {loading ? (
           <div className="col-span-3 flex justify-center items-center h-full">
             <div className="animate-spin h-10 w-10 border-4 border-t-4 border-blue-500 border-t-transparent rounded-full"></div>
@@ -135,7 +135,7 @@ export default function Dashboard() {
           <>
             <div
               id="totalStudents"
-              className="flex flex-col justify-center text-center bg-white shadow-[0_8px_20px_#080f342f] rounded-2xl min-h-10 min-w-10 col-span-1 row-span-1"
+              className="flex flex-col justify-center text-center bg-white shadow-[0_8px_20px_#080f342f] rounded-2xl min-h-4 min-w-10 col-span-1 row-span-1"
             >
               <h1 className="text-3xl font-bold">Total Main Students</h1>
               <p className="mt-3 text-lg text-gray-600">
@@ -146,7 +146,7 @@ export default function Dashboard() {
 
             <div
               id="Siblings"
-              className="flex flex-col justify-center text-center bg-white shadow-[0_8px_20px_#080f342f] p-4 rounded-2xl min-h-10 min-w-10 col-span-1 row-span-1"
+              className="flex flex-col justify-center text-center bg-white shadow-[0_8px_20px_#080f342f] p-4 rounded-2xl min-h-4 min-w-10 col-span-1 row-span-1"
             >
               <h1 className="text-3xl font-bold">Total Siblings</h1>
               <p className="mt-3 text-lg text-gray-600">
@@ -157,7 +157,7 @@ export default function Dashboard() {
 
             <div
               id="Siblings"
-              className="flex flex-col text-center justify-center bg-white shadow-[0_8px_20px_#080f342f] p-4 rounded-2xl min-h-10 min-w-10 col-span-1 row-span-1"
+              className="flex flex-col text-center justify-center bg-white shadow-[0_8px_20px_#080f342f] p-4 rounded-2xl min-h-4 min-w-10 col-span-1 row-span-1"
             >
               <h1 className="text-3xl font-bold">Total Sales</h1>
               <p className="mt-3 text-lg text-gray-600">

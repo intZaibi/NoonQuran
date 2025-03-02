@@ -175,15 +175,15 @@ function StudentEditForm({ student, handleSubmitEditStudent: onSubmit }) {
             <MenuItem value="">
               <em>Select Time</em>
             </MenuItem>
-            <MenuItem value="Any Time in the Morning">Any Time in the Morning</MenuItem>
-            <MenuItem value="Any Time in the Evening">Any Time in the Evening</MenuItem>
-            <MenuItem value="Between 08AM – 10AM">Between 08AM – 10AM</MenuItem>
-            <MenuItem value="Between 10AM – 12PM">Between 10AM – 12PM</MenuItem>
-            <MenuItem value="Between 12PM – 02PM">Between 12PM – 02PM</MenuItem>
-            <MenuItem value="Between 02PM – 04PM">Between 02PM – 04PM</MenuItem>
-            <MenuItem value="Between 04PM – 06PM">Between 04PM – 06PM</MenuItem>
-            <MenuItem value="Between 06PM – 08PM">Between 06PM – 08PM</MenuItem>
-            <MenuItem value="Between 08PM – 10PM">Between 08PM – 10PM</MenuItem>
+            <MenuItem value="Morning">Any Time in the Morning</MenuItem>
+            <MenuItem value="Evening">Any Time in the Evening</MenuItem>
+            <MenuItem value="08am–10am">Between 08AM – 10AM</MenuItem>
+            <MenuItem value="10am–12pm">Between 10AM – 12PM</MenuItem>
+            <MenuItem value="12pm–02pm">Between 12PM – 02PM</MenuItem>
+            <MenuItem value="02pm–04pm">Between 02PM – 04PM</MenuItem>
+            <MenuItem value="04pm–06pm">Between 04PM – 06PM</MenuItem>
+            <MenuItem value="06pm–08pm">Between 06PM – 08PM</MenuItem>
+            <MenuItem value="08pm–10pm">Between 08PM – 10PM</MenuItem>
           </Select>
         </FormControl>
         <FormControl fullWidth className="mb-4">
@@ -198,11 +198,11 @@ function StudentEditForm({ student, handleSubmitEditStudent: onSubmit }) {
             <MenuItem value="">
               <em>Select Course</em>
             </MenuItem>
-            <MenuItem value="Noorani Qaida">{'Noorani Qaida'}</MenuItem>
-            <MenuItem value="Quran Reading">{'Quran Reading'}</MenuItem>
-            <MenuItem value="Quran Memorization (Hifz)">{'Quran Memorization (Hifz)'}</MenuItem>
-            <MenuItem value="Quran Translation">{'Quran Translation'}</MenuItem>
-            <MenuItem value="Quran Tajweed">{'Quran Tajweed'}</MenuItem>
+            <MenuItem value="noorani-qaida">{'Noorani Qaida'}</MenuItem>
+            <MenuItem value="quran-reading">{'Quran Reading'}</MenuItem>
+            <MenuItem value="quran-memorization">{'Quran Memorization (Hifz)'}</MenuItem>
+            <MenuItem value="quran-translation">{'Quran Translation'}</MenuItem>
+            <MenuItem value="quran-tajweed">{'Quran Tajweed'}</MenuItem>
           </Select>
         </FormControl>
 

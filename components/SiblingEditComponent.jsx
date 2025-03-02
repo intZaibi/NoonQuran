@@ -72,8 +72,8 @@ function SiblingEditForm({ student: sibling, handleSubmitEditStudent: onSubmit }
             <MenuItem value="">
               <em>Select Gender</em>
             </MenuItem>
-            <MenuItem value="Male">Male</MenuItem>
-            <MenuItem value="Female">Female</MenuItem>
+            <MenuItem value="male">Male</MenuItem>
+            <MenuItem value="female">Female</MenuItem>
           </Select>
         </FormControl>
 
@@ -89,11 +89,11 @@ function SiblingEditForm({ student: sibling, handleSubmitEditStudent: onSubmit }
             <MenuItem value="">
               <em>Select Course</em>
             </MenuItem>
-            <MenuItem value="Noorani Qaida">Noorani Qaida</MenuItem>
-            <MenuItem value="Quran Reading">Quran Reading</MenuItem>
-            <MenuItem value="Quran Memorization (Hifz)">Quran Memorization (Hifz)</MenuItem>
-            <MenuItem value="Quran Translation">Quran Translation</MenuItem>
-            <MenuItem value="Quran Tajweed">Quran Tajweed</MenuItem>
+            <MenuItem value="noorani-qaida">Noorani Qaida</MenuItem>
+            <MenuItem value="quran-reading">Quran Reading</MenuItem>
+            <MenuItem value="quran-memorization">Quran Memorization (Hifz)</MenuItem>
+            <MenuItem value="quran-translation">Quran Translation</MenuItem>
+            <MenuItem value="quran-tajweed">Quran Tajweed</MenuItem>
           </Select>
         </FormControl>
 

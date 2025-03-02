@@ -1,6 +1,6 @@
 import axios from 'axios';
 // Function to convert any currency to AED
-export default async function convertToAED(amount, fromCurrency) {
+export default async function convertToAED(amount, fromCurrency, toUSD) {
     const url = `https://v6.exchangerate-api.com/v6/${process.env.EXCHANGE_RATE_API_KEY}/latest/${fromCurrency}`;
     
     try {
@@ -8,7 +8,7 @@ export default async function convertToAED(amount, fromCurrency) {
         const response = await axios.get(url);
 
         // Extract the exchange rate for AED
-        const exchangeRate = response.data.conversion_rates.AED;
+        const exchangeRate = toUSD ? response.data.conversion_rates.USD : response.data.conversion_rates.AED;
 
         if (!exchangeRate) {
             console.log(`Error: Exchange rate for AED not found for ${fromCurrency}`);

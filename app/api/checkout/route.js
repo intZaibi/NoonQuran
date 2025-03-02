@@ -157,11 +157,15 @@ export async function POST(req) {
 
       url = session.url;
     } else if (paymentMethod === "Paypal") {
-      url = await createOrder({ name, ...TP, email, course, idempotencyKey });
+      const currencyInUSD = await currencyConverter(TP.totalPrice, TP.currency, true);
+      if (typeof currencyInUSD === "string" && currencyInUSD.includes("Error"))
+        throw new Error(currencyInUSD);
+      else
+      url = await createOrder({ name, totalPrice: TP.totalPrice, currencyInUSD , email, course, idempotencyKey });
     }
 
     // currency conversion to be stored in database in AED
-    const data = await currencyConverter(formData.total_price, currency);
+    const data = await currencyConverter(TP.totalPrice, TP.currency, false);
     if (typeof data === "string" && data.includes("Error"))
       throw new Error(data);
     await db.query(
