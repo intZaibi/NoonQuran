@@ -131,7 +131,7 @@ export async function POST(req) {
           {
             price_data: {
               product_data: {
-                name: '',
+                name: 'Noon Quran courses payment',
                 // images: image,
               },
               currency: TP.currency,
