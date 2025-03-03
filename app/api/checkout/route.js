@@ -130,6 +130,10 @@ export async function POST(req) {
         line_items: [
           {
             price_data: {
+              product_data: {
+                name: '',
+                // images: image,
+              },
               currency: TP.currency,
               unit_amount:
                 currency === "KWD" || currency === "BHD"
