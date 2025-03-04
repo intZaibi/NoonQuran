@@ -70,6 +70,29 @@ export default function Messages() {
     setOpenMenu(!openMenu);
   }
 
+  const handleDelete = async (id) => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/messages`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({id})
+      });
+      
+      const result = await res.json();
+      console.log(result);
+
+      if (res.ok) {
+        setMessages(messages.filter((message)=>message.id!==id));
+      }else throw new Error(result.Error)
+    } catch (error) {
+      console.log(error)
+    }finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <React.Fragment>
       <div className=" absolute pl-5 cursor-pointer w-5 z-40" onClick={handleBarClick}>
@@ -132,6 +155,12 @@ export default function Messages() {
                               onClick={() => window.location.href = `https://wa.me/${whatsapp}`}
                             >
                               WhatsApp
+                            </button>
+                            <button
+                              className="px-2 py-1 bg-red-600 text-white rounded-md"
+                              onClick={()=>handleDelete(id)}
+                            >
+                              Delete
                             </button>
                           </div>
                         </td>

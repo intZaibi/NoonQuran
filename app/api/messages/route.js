@@ -30,3 +30,18 @@ export async function GET(){
     return NextResponse.json({Error: "Something went wrong!"}, {status: 500})
   }
 }
+
+export async function DELETE(req) {
+  const {id} = await req.json();
+  
+  try {
+    
+    await db.query('DELETE FROM messages WHERE id = ?', [id]);
+    return NextResponse.json({ message: 'Deleted Successfully!'}, {status: 200})
+  } catch (error) {
+    
+    console.log('Error deleting message: ', error);
+    return NextResponse.json({Error: "Something went wrong!"}, {status: 500})
+  }
+
+}

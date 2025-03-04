@@ -89,37 +89,42 @@ export default function Dashboard() {
     setShowModal(false);
   };
 
-  const handleSubmitEditStudent = async (updatedData) => {
+  const handleSubmitEditStudent = async (updatedData, DeletedId) => {
     // Logic to update student data
-    
     try{
-      console.log('object')
-      await fetch('http://localhost:3000/api/updateData', {
-        method: "POST",
-        headers: {
-          'Cache-Control': 'max-age=600', // Cache response for 10 minutes
-        },
-        body: JSON.stringify({formData: updatedData})
-      });
+        if(DeletedId){
+          // Update client-side state immediately
+          if (updatedData.role === 'mainStudent') {
+            setStudents(prevStudents => prevStudents.filter(student => student.id !== DeletedId ));
+          } else if (updatedData.role === 'sibling') {
+            setSiblings(prevSiblings => prevSiblings.filter(sibling => sibling.id !== DeletedId ));
+          }
+        }
+        else{
+          await fetch('http://localhost:3000/api/updateData', {
+            method: "POST",
+            headers: {
+              'Cache-Control': 'max-age=600', // Cache response for 10 minutes
+            },
+            body: JSON.stringify({formData: updatedData})
+          });
 
-      // Update client-side state immediately
-    if (updatedData.role === 'mainStudent') {
-      setStudents(prevStudents => prevStudents.map(student => 
-        student.id === updatedData.id ? { ...student, ...updatedData } : student
-      ));
-    } else if (updatedData.role === 'sibling') {
-      setSiblings(prevSiblings => prevSiblings.map(sibling => 
-        sibling.id === updatedData.id ? { ...sibling, ...updatedData } : sibling
-      ));
-    }
-
-
-    } catch(error) {
-      console.log('Error updating data: ', error)
-    } finally {
-      setShowModal(false);
-    }
-    
+          // Update client-side state immediately
+          if (updatedData.role === 'mainStudent') {
+            setStudents(prevStudents => prevStudents.map(student => 
+              student.id === updatedData.id ? { ...student, ...updatedData } : student
+            ));
+          } else if (updatedData.role === 'sibling') {
+            setSiblings(prevSiblings => prevSiblings.map(sibling => 
+              sibling.id === updatedData.id ? { ...sibling, ...updatedData } : sibling
+            ));
+          }
+        }
+      } catch(error) {
+        console.log('Error updating/deleting data: ', error)
+      } finally {
+        setShowModal(false);
+      }
   };
 
   const handleBarClick = () => {
