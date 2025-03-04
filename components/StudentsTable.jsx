@@ -11,14 +11,14 @@ const TABLE_HEAD = [
   "whatsapp_no",
   "phone",
   "skype_id",
-  "guardian_name",
-  "language",
+  "total_price",
+  "payment_status",
   "class_time",
   "class_days",
   "no_of_siblings",
   "country",
-  "total_price",
-  "payment_status",
+  "language",
+  "guardian_name",
   "created_at",
 ];
 
@@ -183,12 +183,12 @@ function TableComponent({ students, siblings, handleEditButtonClick }) {
                       </td>
                       <td className="p-4">
                         <Typography variant="small" color="blue-gray" className="font-normal text-center">
-                          {guardian_name}
+                          AED {total_price}
                         </Typography>
                       </td>
                       <td className="p-4">
                         <Typography variant="small" color="blue-gray" className="font-normal text-center">
-                          {language}
+                          {payment_status}
                         </Typography>
                       </td>
                       <td className="p-4">
@@ -213,12 +213,12 @@ function TableComponent({ students, siblings, handleEditButtonClick }) {
                       </td>
                       <td className="p-4">
                         <Typography variant="small" color="blue-gray" className="font-normal text-center">
-                          AED {total_price}
+                          {language}
                         </Typography>
                       </td>
                       <td className="p-4">
                         <Typography variant="small" color="blue-gray" className="font-normal text-center">
-                          {payment_status}
+                          {guardian_name}
                         </Typography>
                       </td>
                       <td className="p-4">
