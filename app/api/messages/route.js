@@ -23,7 +23,7 @@ export async function GET(){
   try {
     
     const messages = await db.query('SELECT * FROM messages');
-    return NextResponse.json({ messages }, {status: 200})
+    return NextResponse.json({ messages: messages[0] }, {status: 200})
   } catch (error) {
     
     console.log('Error retrieving messages: ', error);

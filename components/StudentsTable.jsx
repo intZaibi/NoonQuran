@@ -63,7 +63,7 @@ function TableComponent({ students, siblings, handleEditButtonClick }) {
   };
 
   return (
-    <Card className="w-full h-full overflow-x-auto overflow-y-scroll scrollbar-hidden">
+    <Card className="w-full h-full overflow-x-auto overflow-y-scroll scrollbar-hidden select-text">
       <div className="overflow-x-auto">
         <table className="w-full min-w-max table-auto text-left">
           <thead className="sticky top-0 bg-white z-30">
@@ -135,7 +135,7 @@ function TableComponent({ students, siblings, handleEditButtonClick }) {
 
                 return (
                   <React.Fragment key={id}>
-                    <tr className="cursor-pointer" onClick={() => handleRowClick(idempotencyKey)}>
+                    <tr onClick={() => handleRowClick(idempotencyKey)}>
                       <td className="p-4 sticky left-0 bg-white z-20">
                         <Typography variant="small" color="blue-gray" className="font-normal text-center">
                           {id}
