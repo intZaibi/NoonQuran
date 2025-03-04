@@ -6,7 +6,7 @@ export async function POST(req){
   console.log(formData);
   try{
 
-    await db.query('INSERT INTO messages VALUES ?, ?, ?, ?', [
+    await db.query('INSERT INTO messages (name, email, whatsapp, message) VALUES (?, ?, ?, ?)', [
       formData.name, formData.email, formData.whatsapp, formData.message
     ]);
   } catch(err) {
