@@ -38,7 +38,7 @@ export async function POST(req, res) {
 
     await stripe.checkout.sessions.listLineItems(session.id);
 
-    mailer({email: customer_email, name: metadata.name});
+    await mailer({email: customer_email, name: metadata.name});
     saveOrderToDatabase(idempotencyKey);
 
   } else {
