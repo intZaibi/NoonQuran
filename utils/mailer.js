@@ -11,6 +11,7 @@ const transporter = nodemailer.createTransport({
 });
 
 export default async function(details) {
+  console.log('Reached Mailer...')
   const info = await transporter.sendMail({
     from: `"Noon Quran" <${process.env.EMAIL_USERNAME}>`, // sender address
     to: details.email, // list of receivers
