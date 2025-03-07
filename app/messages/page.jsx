@@ -129,18 +129,20 @@ export default function Messages() {
                     <th className="px-4 py-2 text-left">Name</th>
                     <th className="px-4 py-2 text-left">Email</th>
                     <th className="px-4 py-2 text-left">WhatsApp</th>
+                    <th className="px-4 py-2 text-left">Message</th>
                     <th className="px-4 py-2 text-left">Created At</th>
                     <th className="px-4 py-2 text-left">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {messages.length > 0 ? (
-                    messages.map(({id, name, email, whatsapp, created_at}) => (
+                    messages.map(({id, name, email, whatsapp, message, created_at}) => (
                       <tr key={id} className="border-b">
                         <td className="px-4 py-2  text-sm">{id}</td>
                         <td className="px-4 py-2  text-sm">{name}</td>
                         <td className="px-4 py-2  text-sm">{email}</td>
                         <td className="px-4 py-2  text-sm">{whatsapp}</td>
+                        <td className="px-4 py-2 text-wrap max-w-80 text-sm">{message}</td>
                         <td className="px-4 py-2  text-sm">{new Date(created_at).toLocaleString()}</td>
                         <td className="px-4 py-2">
                           <div className="flex space-x-4">
