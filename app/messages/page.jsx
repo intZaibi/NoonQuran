@@ -142,7 +142,7 @@ export default function Messages() {
                         <td className="px-4 py-2  text-sm">{name}</td>
                         <td className="px-4 py-2  text-sm">{email}</td>
                         <td className="px-4 py-2  text-sm">{whatsapp}</td>
-                        <td className="px-4 py-2 text-wrap max-w-80 text-sm">{message}</td>
+                        <td className="px-4 py-2 text-wrap break-words max-w-80 text-sm">{message}</td>
                         <td className="px-4 py-2  text-sm">{new Date(created_at).toLocaleString()}</td>
                         <td className="px-4 py-2">
                           <div className="flex space-x-4">
