@@ -22,7 +22,7 @@ export async function POST(req){
 export async function GET(){
   try {
     
-    const messages = await db.query('SELECT * FROM messages');
+    const messages = await db.query('SELECT * FROM messages ORDER BY id DESC');
     return NextResponse.json({ messages: messages[0] }, {status: 200})
   } catch (error) {
     
