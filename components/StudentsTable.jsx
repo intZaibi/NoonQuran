@@ -313,7 +313,7 @@ function TableComponent({ students, siblings, handleEditButtonClick }) {
         <button
           disabled={currentPage === 1}
           onClick={() => handlePagination(currentPage - 1)}
-          className="px-4 py-2 bg-blue-500 text-white rounded-md"
+          className={`px-4 py-2 rounded-md ${currentPage === 1 ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 text-white'}`}
         >
           Previous
         </button>
@@ -323,7 +323,7 @@ function TableComponent({ students, siblings, handleEditButtonClick }) {
         <button
           disabled={currentPage === totalPages}
           onClick={() => handlePagination(currentPage + 1)}
-          className="px-4 py-2 bg-blue-500 text-white rounded-md"
+          className={`px-4 py-2 rounded-md ${currentPage === totalPages ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 text-white'}`}
         >
           Next
         </button>
