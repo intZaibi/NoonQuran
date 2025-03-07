@@ -4,6 +4,8 @@ import AdminSideBar from '@/components/AdminSidebar';
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 
+const PAGE_SIZE = 10;
+
 export default function Messages() {
 
   const router = useRouter();
@@ -41,6 +43,7 @@ export default function Messages() {
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState([]);
   const [openMenu, setOpenMenu] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   // Fetch messages data
@@ -65,6 +68,13 @@ export default function Messages() {
   useEffect(() => {
     fetchMessages();
   }, [isAuthenticated]);
+
+  const totalPages = Math.ceil(messages.length / PAGE_SIZE);
+  const currentData = messages.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+
+  const handlePagination = (page) => {
+    setCurrentPage(page);
+  };
 
   const handleBarClick = () => {
     setOpenMenu(!openMenu);
@@ -135,8 +145,8 @@ export default function Messages() {
                   </tr>
                 </thead>
                 <tbody>
-                  {messages.length > 0 ? (
-                    messages.map(({id, name, email, whatsapp, message, created_at}) => (
+                  {currentData.length > 0 ? (
+                    currentData.map(({id, name, email, whatsapp, message, created_at}) => (
                       <tr key={id} className="border-b">
                         <td className="px-4 py-2  text-sm">{id}</td>
                         <td className="px-4 py-2  text-sm">{name}</td>
@@ -177,6 +187,27 @@ export default function Messages() {
               </table>
             </div>
           )}
+
+          {/* Pagination Controls */}
+          <div className="flex justify-between items-center mt-4">
+            <button
+              disabled={currentPage === 1}
+              onClick={() => handlePagination(currentPage - 1)}
+              className={`px-4 py-2 rounded-md ${currentPage === 1 ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 text-white'}`}
+            >
+              Previous
+            </button>
+            <span>
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              disabled={currentPage === totalPages}
+              onClick={() => handlePagination(currentPage + 1)}
+              className={`px-4 py-2 rounded-md ${currentPage === totalPages ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 text-white'}`}
+            >
+              Next
+            </button>
+          </div>
         </div>
       </div>
     </React.Fragment>
