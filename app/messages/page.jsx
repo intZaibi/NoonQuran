@@ -69,8 +69,8 @@ export default function Messages() {
     fetchMessages();
   }, [isAuthenticated]);
 
-  const totalPages = Math.ceil(messages.length / PAGE_SIZE);
-  const currentData = messages.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+  const totalPages = Math.ceil(messages?.length / PAGE_SIZE);
+  const currentData = messages?.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
 
   const handlePagination = (page) => {
     setCurrentPage(page);
@@ -145,8 +145,8 @@ export default function Messages() {
                   </tr>
                 </thead>
                 <tbody>
-                  {currentData.length > 0 ? (
-                    currentData.map(({id, name, email, whatsapp, message, created_at}) => (
+                  {currentData?.length > 0 ? (
+                    currentData?.map(({id, name, email, whatsapp, message, created_at}) => (
                       <tr key={id} className="border-b">
                         <td className="px-4 py-2  text-sm">{id}</td>
                         <td className="px-4 py-2  text-sm">{name}</td>

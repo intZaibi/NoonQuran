@@ -28,8 +28,8 @@ function TableComponent({ students, siblings, handleEditButtonClick }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [expandedStudentId, setExpandedStudentId] = useState(null);
 
-  const totalPages = Math.ceil(students.length / PAGE_SIZE);
-  const currentData = students.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+  const totalPages = Math.ceil(students?.length / PAGE_SIZE);
+  const currentData = students?.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
 
   function convertToRoman(num) {
   const romanNumerals = [
@@ -98,7 +98,7 @@ function TableComponent({ students, siblings, handleEditButtonClick }) {
             </tr>
           </thead>
           <tbody>
-            {currentData.map(
+            {currentData?.map(
               (
                 {
                   id,
@@ -131,7 +131,7 @@ function TableComponent({ students, siblings, handleEditButtonClick }) {
                   ", " +
                   created_at?.toString()?.split("T")[0];
 
-                const filteredSiblings = siblings.filter((sibling) => sibling.idempotencyKey === idempotencyKey);
+                const filteredSiblings = siblings?.filter((sibling) => sibling.idempotencyKey === idempotencyKey);
 
                 return (
                   <React.Fragment key={id}>
@@ -251,8 +251,8 @@ function TableComponent({ students, siblings, handleEditButtonClick }) {
                     </tr>
 
                     {
-                      filteredSiblings.length > 0 ? (
-                        filteredSiblings.map(({ id, name, age, gender, course }, i) => (
+                      filteredSiblings?.length > 0 ? (
+                        filteredSiblings?.map(({ id, name, age, gender, course }, i) => (
                           <tr key={i} className="bg-gray-100">
                             <td className="p-4 sticky left-0 z-20">
                               <Typography variant="small" color="blue-gray" className="font-normal text-center">
