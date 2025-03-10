@@ -9,7 +9,7 @@ export async function POST(req) {
     const token = jwt.sign(
       { admin: "admin"},
       process.env.SESSION_SECRET,
-      { expiresIn: '10min' }
+      { expiresIn: '1hr' }
     );
     
     const cookie = await cookies()
