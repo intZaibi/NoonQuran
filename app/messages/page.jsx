@@ -12,7 +12,7 @@ export default function Messages() {
     const token = Cookies.get("admin");
     
     const authenticate = async () => {
-      setLoading(true)
+      // setLoading(true)
       try{
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_BASE_URL}/api/adminLogin`,
@@ -40,7 +40,7 @@ export default function Messages() {
       authenticate();
     }, []);
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [messages, setMessages] = useState([]);
   const [openMenu, setOpenMenu] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -48,7 +48,7 @@ export default function Messages() {
 
   // Fetch messages data
   const fetchMessages = async () => {
-    setLoading(true);
+    // setLoading(true);
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/messages`, {
         method: "GET",
@@ -66,7 +66,9 @@ export default function Messages() {
   };
 
   useEffect(() => {
-    fetchMessages();
+    if (isAuthenticated) {
+      fetchMessages();
+    }
   }, [isAuthenticated]);
 
   const totalPages = Math.ceil(messages?.length / PAGE_SIZE);
@@ -98,8 +100,6 @@ export default function Messages() {
       }else throw new Error(result.Error)
     } catch (error) {
       console.log(error)
-    }finally {
-      setLoading(false)
     }
   }
 
@@ -130,62 +130,63 @@ export default function Messages() {
               <div className="animate-spin h-10 w-10 border-4 border-t-4 border-blue-500 border-t-transparent rounded-full"></div>
             </div>
           ) : (
-            <div className="overflow-x-auto bg-white shadow-[0_8px_20px_#080f342f] p-4 rounded-2xl">
-              <h1 className="text-xl font-bold mb-4">Messages Table</h1>
-              <table className="min-w-full table-auto border-collapse">
-                <thead>
-                  <tr>
-                    <th className="px-4 py-2 text-left">Id</th>
-                    <th className="px-4 py-2 text-left">Name</th>
-                    <th className="px-4 py-2 text-left">Email</th>
-                    <th className="px-4 py-2 text-left">WhatsApp</th>
-                    <th className="px-4 py-2 text-left">Message</th>
-                    <th className="px-4 py-2 text-left">Created At</th>
-                    <th className="px-4 py-2 text-left">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {currentData?.length > 0 ? (
-                    currentData?.map(({id, name, email, whatsapp, message, created_at}) => (
-                      <tr key={id} className="border-b">
-                        <td className="px-4 py-2  text-sm">{id}</td>
-                        <td className="px-4 py-2  text-sm">{name}</td>
-                        <td className="px-4 py-2  text-sm">{email}</td>
-                        <td className="px-4 py-2  text-sm">{whatsapp}</td>
-                        <td className="px-4 py-2 text-wrap break-words max-w-80 text-sm">{message}</td>
-                        <td className="px-4 py-2  text-sm">{new Date(created_at).toLocaleString()}</td>
-                        <td className="px-4 py-2">
-                          <div className="flex space-x-4">
-                            <button
-                              className="px-2 py-1 bg-blue-500 text-white rounded-md"
-                              onClick={() => window.location.href = `mailto:${email}`}
-                            >
-                              Mail
-                            </button>
-                            <button
-                              className="px-2 py-1 bg-green-600 text-white rounded-md"
-                              onClick={() => window.location.href = `https://wa.me/${whatsapp}`}
-                            >
-                              WhatsApp
-                            </button>
-                            <button
-                              className="px-2 py-1 bg-red-600 text-white rounded-md"
-                              onClick={()=>handleDelete(id)}
-                            >
-                              Delete
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))
-                  ) : (
+            isAuthenticated && 
+              <div className="overflow-x-auto bg-white shadow-[0_8px_20px_#080f342f] p-4 rounded-2xl">
+                <h1 className="text-xl font-bold mb-4">Messages Table</h1>
+                <table className="min-w-full table-auto border-collapse">
+                  <thead>
                     <tr>
-                      <td colSpan="6" className="px-4 py-2 text-center">No messages found.</td>
+                      <th className="px-4 py-2 text-left">Id</th>
+                      <th className="px-4 py-2 text-left">Name</th>
+                      <th className="px-4 py-2 text-left">Email</th>
+                      <th className="px-4 py-2 text-left">WhatsApp</th>
+                      <th className="px-4 py-2 text-left">Message</th>
+                      <th className="px-4 py-2 text-left">Created At</th>
+                      <th className="px-4 py-2 text-left">Action</th>
                     </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody>
+                    {currentData?.length > 0 ? (
+                      currentData?.map(({id, name, email, whatsapp, message, created_at}) => (
+                        <tr key={id} className="border-b">
+                          <td className="px-4 py-2  text-sm">{id}</td>
+                          <td className="px-4 py-2  text-sm">{name}</td>
+                          <td className="px-4 py-2  text-sm">{email}</td>
+                          <td className="px-4 py-2  text-sm">{whatsapp}</td>
+                          <td className="px-4 py-2 text-wrap break-words max-w-80 text-sm">{message}</td>
+                          <td className="px-4 py-2  text-sm">{new Date(created_at).toLocaleString()}</td>
+                          <td className="px-4 py-2">
+                            <div className="flex space-x-4">
+                              <button
+                                className="px-2 py-1 bg-blue-500 text-white rounded-md"
+                                onClick={() => window.location.href = `mailto:${email}`}
+                              >
+                                Mail
+                              </button>
+                              <button
+                                className="px-2 py-1 bg-green-600 text-white rounded-md"
+                                onClick={() => window.location.href = `https://wa.me/${whatsapp}`}
+                              >
+                                WhatsApp
+                              </button>
+                              <button
+                                className="px-2 py-1 bg-red-600 text-white rounded-md"
+                                onClick={()=>handleDelete(id)}
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="6" className="px-4 py-2 text-center">No messages found.</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
           )}
 
           {/* Pagination Controls */}
@@ -201,9 +202,9 @@ export default function Messages() {
               Page {currentPage} of {totalPages}
             </span>
             <button
-              disabled={currentPage === totalPages}
+              disabled={currentPage === totalPages || totalPages === 0}
               onClick={() => handlePagination(currentPage + 1)}
-              className={`px-4 py-2 rounded-md ${currentPage === totalPages ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 text-white'}`}
+              className={`px-4 py-2 rounded-md ${currentPage === totalPages || totalPages === 0 ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 text-white'}`}
             >
               Next
             </button>

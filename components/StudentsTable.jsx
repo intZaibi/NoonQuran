@@ -26,7 +26,7 @@ const PAGE_SIZE = 20;
 
 function TableComponent({ students, siblings, handleEditButtonClick }) {
   const [currentPage, setCurrentPage] = useState(1);
-  const [expandedStudentId, setExpandedStudentId] = useState(null);
+  // const [expandedStudentId, setExpandedStudentId] = useState(null);
 
   const totalPages = Math.ceil(students?.length / PAGE_SIZE);
   const currentData = students?.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
@@ -58,9 +58,9 @@ function TableComponent({ students, siblings, handleEditButtonClick }) {
     setCurrentPage(page);
   };
 
-  const handleRowClick = (idempotencyKey) => {
-    setExpandedStudentId((prev) => (prev === idempotencyKey ? null : idempotencyKey));
-  };
+  // const handleRowClick = (idempotencyKey) => {
+  //   setExpandedStudentId((prev) => (prev === idempotencyKey ? null : idempotencyKey));
+  // };
 
   return (
     <Card className="w-full h-full overflow-x-auto overflow-y-scroll scrollbar-hidden select-text">
@@ -135,7 +135,9 @@ function TableComponent({ students, siblings, handleEditButtonClick }) {
 
                 return (
                   <React.Fragment key={id}>
-                    <tr onClick={() => handleRowClick(idempotencyKey)}>
+                    <tr 
+                    // onClick={() => handleRowClick(idempotencyKey)}
+                    >
                       <td className="p-4 sticky left-0 bg-white z-20">
                         <Typography variant="small" color="blue-gray" className="font-normal text-center">
                           {id}
@@ -321,9 +323,9 @@ function TableComponent({ students, siblings, handleEditButtonClick }) {
           Page {currentPage} of {totalPages}
         </span>
         <button
-          disabled={currentPage === totalPages}
+          disabled={currentPage === totalPages || totalPages === 0}
           onClick={() => handlePagination(currentPage + 1)}
-          className={`px-4 py-2 rounded-md ${currentPage === totalPages ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 text-white'}`}
+          className={`px-4 py-2 rounded-md ${currentPage === totalPages || totalPages === 0 ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 text-white'}`}
         >
           Next
         </button>

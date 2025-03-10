@@ -11,7 +11,7 @@ export default function Dashboard() {
   const token = Cookies.get("admin");
   
   const authenticate = async () => {
-    setLoading(true)
+    // setLoading(true)
     try{
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/adminLogin`,
@@ -39,13 +39,14 @@ export default function Dashboard() {
     authenticate();
   }, []);
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [students, setStudents] = useState([]);
   const [siblings, setSiblings] = useState([]);
 
   const fetchData = async () => {
-    setLoading(true);
+    console.log('fetching...')
+    // setLoading(true);
     try {
       // Main Students Data
       const res = await fetch(
@@ -71,7 +72,9 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    fetchData();
+    if (isAuthenticated) {
+      fetchData();
+    }
   }, [isAuthenticated]);
 
 
@@ -160,6 +163,7 @@ export default function Dashboard() {
             <div className="animate-spin h-10 w-10 border-4 border-t-4 border-blue-500 border-t-transparent rounded-full"></div>
           </div>
         ) : (
+          isAuthenticated && 
           <>
             <div
               id="totalStudents"
@@ -203,7 +207,6 @@ export default function Dashboard() {
               <h1 className="text-xl font-bold">Main Student Table</h1>
               <StudentsTable students={students} siblings={siblings} handleEditButtonClick={handleEditButtonClick} />
             </div>
-
           </>
         )}
       </div>
