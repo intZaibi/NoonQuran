@@ -45,7 +45,6 @@ export default function Dashboard() {
   const [siblings, setSiblings] = useState([]);
 
   const fetchData = async () => {
-    console.log('fetching...')
     // setLoading(true);
     try {
       // Main Students Data
